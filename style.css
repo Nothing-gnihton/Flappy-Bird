@@ -1,0 +1,403 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #56ccf2, #2f80ed);
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    background: linear-gradient(to bottom, #87CEEB, #E0F7FA);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+}
+
+/* Start Screen Styles */
+.start-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+}
+
+.start-screen h1 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: pulse 2s infinite;
+}
+
+.start-screen p {
+    font-size: 1.2rem;
+    margin-top: 2rem;
+    animation: float 3s ease-in-out infinite;
+}
+
+.bird-animation {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin: 20px 0;
+}
+
+.bird {
+    font-size: 3rem;
+    position: absolute;
+    z-index: 2;
+    animation: bounce 1s infinite alternate;
+}
+
+.wings {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+.wing {
+    position: absolute;
+    font-size: 1.5rem;
+    color: #FFD700;
+}
+
+.wing.left {
+    left: -20px;
+    top: 15px;
+    transform: rotate(-30deg);
+    animation: flapLeft 0.4s infinite alternate;
+}
+
+.wing.right {
+    right: -20px;
+    top: 15px;
+    transform: rotate(30deg);
+    animation: flapRight 0.4s infinite alternate;
+}
+
+.clouds {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.cloud {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.8;
+    animation: cloudFloat linear infinite;
+}
+
+.cloud1 {
+    top: 20%;
+    left: -50px;
+    animation-duration: 30s;
+}
+
+.cloud2 {
+    top: 40%;
+    right: -50px;
+    animation-duration: 25s;
+    animation-delay: 5s;
+}
+
+.cloud3 {
+    top: 60%;
+    left: -50px;
+    animation-duration: 35s;
+    animation-delay: 10s;
+}
+
+/* Game Screen Styles */
+.game-screen {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.score-display {
+    position: absolute;
+    top: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5;
+}
+
+.current-score {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.best-scores {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+    font-size: 1rem;
+    background: rgba(0, 0, 0, 0.3);
+    padding: 5px 15px;
+    border-radius: 20px;
+}
+
+.bird-game {
+    position: absolute;
+    font-size: 3rem;
+    z-index: 2;
+    transition: transform 0.1s;
+}
+
+.pipes {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.pipe {
+    position: absolute;
+    width: 60px;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    border: 3px solid #2E7D32;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+}
+
+.pipe-top {
+    top: 0;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+.pipe-bottom {
+    bottom: 60px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.pipe-cap {
+    width: 70px;
+    height: 20px;
+    background: linear-gradient(to right, #388E3C, #4CAF50);
+    border: 3px solid #2E7D32;
+    position: absolute;
+}
+
+.pipe-top .pipe-cap {
+    bottom: -20px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.pipe-bottom .pipe-cap {
+    top: -20px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.ground {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60px;
+    background: linear-gradient(to right, #8D6E63, #A1887F);
+    border-top: 5px solid #5D4037;
+    z-index: 3;
+}
+
+/* Game Over Screen */
+.game-over-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    z-index: 10;
+    display: none;
+}
+
+.game-over-box {
+    background: linear-gradient(135deg, #ff758c, #ff7eb3);
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+    width: 80%;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transform: scale(0);
+    animation: popIn 0.5s forwards;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-over-box::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    animation: rotate 20s linear infinite;
+    z-index: -1;
+}
+
+.game-over-box h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.final-score {
+    margin: 20px 0;
+    font-size: 1.5rem;
+}
+
+.final-score p {
+    margin: 10px 0;
+}
+
+.try-again-btn {
+    background: linear-gradient(to right, #FFD700, #FFA500);
+    border: none;
+    color: #5D4037;
+    padding: 12px 30px;
+    font-size: 1.2rem;
+    border-radius: 30px;
+    cursor: pointer;
+    margin-top: 20px;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s;
+}
+
+.try-again-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.try-again-btn:active {
+    transform: translateY(1px);
+}
+
+.medal {
+    width: 80px;
+    height: 80px;
+    margin: 20px auto;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #FFD700, #FFA500);
+    box-shadow: 0 0 20px rgba(255, 215, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    color: #5D4037;
+    opacity: 0;
+    transform: scale(0);
+    animation: medalPop 0.5s 0.5s forwards;
+}
+
+/* Particles */
+.particles {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.particle {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+/* Animations */
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+}
+
+@keyframes flapLeft {
+    0% { transform: rotate(-30deg); }
+    100% { transform: rotate(-70deg); }
+}
+
+@keyframes flapRight {
+    0% { transform: rotate(30deg); }
+    100% { transform: rotate(70deg); }
+}
+
+@keyframes cloudFloat {
+    0% { transform: translateX(-100px); }
+    100% { transform: translateX(500px); }
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+    100% { transform: translateY(0); }
+}
+
+@keyframes popIn {
+    0% { transform: scale(0); }
+    80% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes medalPop {
+    0% { transform: scale(0); opacity: 0; }
+    80% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+    .game-container {
+        width: 100%;
+        height: 100vh;
+        border-radius: 0;
+    }
+}
