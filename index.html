@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flappy Bird Deluxe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="start-screen">
+            <h1>Flappy Bird Deluxe</h1>
+            <div class="bird-animation">
+                <div class="bird">🐤</div>
+                <div class="wings">
+                    <div class="wing left"></div>
+                    <div class="wing right"></div>
+                </div>
+            </div>
+            <p>Press SPACE or tap to start</p>
+            <div class="clouds">
+                <div class="cloud cloud1">☁️</div>
+                <div class="cloud cloud2">☁️</div>
+                <div class="cloud cloud3">☁️</div>
+            </div>
+        </div>
+        
+        <div class="game-screen" style="display: none;">
+            <div class="score-display">
+                <span class="current-score">0</span>
+                <div class="best-scores">
+                    <span>🥇 <span class="top1">0</span></span>
+                    <span>🥈 <span class="top2">0</span></span>
+                    <span>🥉 <span class="top3">0</span></span>
+                </div>
+            </div>
+            <div class="bird-game">🐤</div>
+            <div class="pipes"></div>
+            <div class="ground"></div>
+        </div>
+        
+        <div class="game-over-screen" style="display: none;">
+            <div class="game-over-box">
+                <h2>Game Over!</h2>
+                <div class="final-score">
+                    <p>Your Score: <span class="score-value">0</span></p>
+                    <p>Best: <span class="best-value">0</span></p>
+                </div>
+                <button class="try-again-btn">Try Again</button>
+                <div class="medal"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="particles"></div>
+    
+    <audio id="flapSound" src="https://assets.mixkit.co/sfx/preview/mixkit-bird-whistling-1540.mp3"></audio>
+    <audio id="hitSound" src="https://assets.mixkit.co/sfx/preview/mixkit-arcade-retro-game-over-213.mp3"></audio>
+    <audio id="pointSound" src="https://assets.mixkit.co/sfx/preview/mixkit-achievement-bell-600.mp3"></audio>
+    
+    <script src="script.js"></script>
+</body>
+</html>
